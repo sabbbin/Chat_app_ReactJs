@@ -1,8 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import './home_page.css'
 
 
 export default function Home_page() {
+
+    let [flag, setFlag]= useState(true)
+
+    const handleChange=()=>{
+        console.log('btn clie')
+        setFlag(!flag)
+    }
   return (
     <>
       <div className="container">
@@ -11,10 +18,18 @@ export default function Home_page() {
 
           <div className="home_content">
                 <div className="home_content_header">
-                  <button className="active">Login</button>
-                  <button>Sign Up</button>
+                  <button 
+                  className={flag?'active':''}
+                  onClick={handleChange}
+                  >Login</button>
+                  <button
+                   className={flag?'':'active'}
+                   onClick={handleChange}
+                  >Sign Up</button>
                 </div>
-                <div className="login active">
+                <div 
+                className={flag?'login active':'login'}
+                >
 
                 <form className="form">
                     <div className="form_control"> 
@@ -43,7 +58,9 @@ export default function Home_page() {
                         Get Guest User Credentials
                     </button>
                 </div>
-                    <div className="register">
+                    <div 
+                      className={flag?'register ':'register active'}
+                    >
 
                 <form className="form">
                     <div className="form_control">
