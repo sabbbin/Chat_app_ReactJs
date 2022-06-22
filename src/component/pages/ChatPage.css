@@ -154,6 +154,7 @@
     padding: 15px;
     background-color: yellow;
     border-radius: 20px;
+    cursor: pointer;
 }
 .user_profile img{
     height: 28px;
@@ -260,4 +261,39 @@
     margin-left: auto;
   
 
+}
+
+.profile_view{
+
+    position:fixed;
+    top:8%;
+    left:50%;
+    width:300px;
+    background-color: wheat;
+    padding: 15px;
+    border-radius: 30px;
+    display: none;
+}
+
+.profile_view.active{
+    display: block;
+}
+.profile_view img{
+    height: 170px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+}
+
+.profile_view i{
+        border: none;
+        color: blue;
+       
+        cursor: pointer;
+        float: right;
+}
+
+.profile_view  p{
+    font-weight: 100;
+    font-size: 14px;
+    color: rebeccapurple;
 }
