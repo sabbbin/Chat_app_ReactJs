@@ -1,0 +1,263 @@
+
+
+.navbar{
+    background-color: aquamarine;
+    height: 50px;
+    display: flex;
+ 
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 20px;
+
+    top: 0;
+}
+
+.navbar div{
+    width: 32%;
+}
+
+
+.search_navbar{
+    position: relative;
+}
+
+.search_navbar .search{
+  margin-right: 10px;  
+  cursor: pointer;     
+  background-color: white;
+  padding: 5px;
+
+  border-radius: 30px;
+}
+
+.search_navbar input {
+    width: 200px;
+    height: 25px;
+    border: 0px;
+    border-radius: 20px;
+    padding:  0px 20px;
+    top: -50px;
+ 
+    transition: top 0.3s;
+    position:absolute;
+ 
+   
+}
+
+.search_navbar input.active{
+    top:0px;
+
+    transition: top .3s linear;
+  
+ 
+}
+
+
+.search_navbar input:focus{
+    outline: none;
+}
+
+.chat_title{
+    text-align: center;
+}
+
+.profile_navbar{
+     text-align: end;
+     
+    }
+.profile_navbar img{
+    height: 30px;
+    border-radius: 50%;
+    margin-right: 18px;
+    display: inline;
+}
+
+.notification{
+    display: inline;
+}
+
+.profile_navbar i{
+    top:-5px;
+    position: relative;
+    font-size: 20px;
+    
+    cursor: pointer;
+}
+.notification span{
+    position: relative;
+    top:-16px;
+    background-color: red;
+    color:white;
+    padding: 3px;
+    font-size: 12px;
+    border-radius: 50%;
+    height: 20px;
+    width: 20px;
+}
+
+.main_container{
+    background-color: blueviolet;
+    height: 94vh;
+    display: flex;
+}
+
+.main_container .sidebar{
+    border: 2px solid black;
+    border-radius: 20px;
+    padding: 10px 20px;
+    width: 32%;
+    background-color: white;
+    margin: 20px;
+}
+.main_container .main_content{
+    border: 2px solid black;
+    width: 60%;
+    background-color: white;
+    margin: 20px;
+    border-radius: 20px;
+    padding: 10px 20px;
+}
+
+.sidebar_header{
+    display: flex;
+    margin-top: 8px;
+    justify-content: space-between;
+    align-items: center;
+    background-color: red;
+}
+
+.sidebar_header h6{
+    margin: 0px;
+    font-size: 16px;
+}
+
+.sidebar_header button{
+    border: 0px;
+    padding: 5px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+}
+.sidebar_header button span{
+    margin-left: 10px;
+}
+
+.sidebar_content{
+    
+    margin-top: 40px;
+  
+    padding: 10px 15px;
+}
+
+.sidebar_content .user_profile{
+    display: flex;
+    margin-top: 15px;
+    padding: 15px;
+    background-color: yellow;
+    border-radius: 20px;
+}
+.user_profile img{
+    height: 28px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.user_info h6{
+    padding: 0px;
+    margin: 0;
+    font-size: 14px;
+}
+.user_info p{
+    margin: 0;
+    font-size: 12px;
+}
+
+
+.main_content .title{
+    margin: 0px;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: red;
+    position: relative;
+}
+
+.main_content .title h5{
+    padding: 0px;
+    margin: 0;
+    font-size: 16px;
+}
+
+.main_content .title i {
+    cursor: pointer;
+}
+
+.main_content .msg{
+    height: 85%;
+    background-color:green;
+    margin-bottom: 10px;
+}
+
+.main_content .footer{
+   
+    bottom: 70px;
+    background-color: aqua;
+    width:100%;
+    text-align: center;
+    
+
+}
+
+.main_content .footer input{
+    width:80%;
+    height: 28px;
+    border: 0;
+    padding-left: 30px;
+    background-color: antiquewhite;
+    border-radius: 20px 0px 0px  20px ;
+}
+
+.main_content .footer input:focus{
+    outline: none;
+}
+
+.main_content .footer button {
+    width: 13%;
+    border: 0;
+    border-radius: 0px 20px 20px 0px;
+    height: 30px;
+    background-color: blue;
+    color:white;
+}
+
+.msg{
+    position: relative;
+    margin: 20px 0px;
+    display: flex;
+    flex-direction:column-reverse;
+    padding: 10px;
+    
+}
+
+.msg .msg_texts{
+    background-color: aliceblue;
+    height: 30px;
+    width: fit-content;
+    padding: 6px 20px;
+    border-radius: 60px;
+    box-sizing: border-box;
+    margin: 3px;
+  
+
+}
+.msg .msg_texts.lf{
+    background-color: aliceblue;
+    height: 30px;
+    width: fit-content;
+    padding: 6px 20px;
+    border-radius: 60px;
+    box-sizing: border-box;
+    margin-left: auto;
+  
+
+}

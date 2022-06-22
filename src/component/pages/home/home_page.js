@@ -81,10 +81,14 @@ export default function Home_page() {
                         <label>
                             Password
                         </label>
+                  
+                       
+                    
                         <input placeholder="Password" />
                         <button  className="btn btn_show">
                             Show
                         </button>
+                      
 
                     </div>
                     <div className="form_control">
