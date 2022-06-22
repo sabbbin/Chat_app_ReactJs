@@ -156,6 +156,11 @@
     border-radius: 20px;
     cursor: pointer;
 }
+
+
+.sidebar_content .user_profile.active{
+    background-color: wheat
+}
 .user_profile img{
     height: 28px;
     border-radius: 50%;
@@ -261,6 +266,10 @@
     margin-left: auto;
   
 
+}
+
+.msg .msg_texts.receive{
+    float: right;
 }
 
 .profile_view{
