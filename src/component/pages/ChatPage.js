@@ -5,162 +5,123 @@ export default function ChatPage() {
 
     let [flag, setFlag]= useState(false)
     let [profileFlag, setProfileFlag]=useState(false)
-     let [newmsg, setNewmsg]=useState('')
-     let loginUser={
-        id:2,
-        name:'kanchan kc',
-        email:'kanchan@gmail.com',
-        img:'/img/blank_img.png',
-        chatmsg:[{
-            id:1,
-            msg:[
-                {
-                    send :['k gardai xas '],
-                    receive:['bashi rako ho']
-                }
-                ,{ 
-                send:['how are your '],
-                receive:['i am fine']
-                
-        }
-            ]
-        },
-        {
-            id:2,
-            msg:[{ 
-                send:['khana khyes '],
-                receive:['khaya taila']
-                
-        },{
-            send :['swimming garna jani ho'],
-            receive:['pachi jaula']
-        }]
-        }
-    ]
-     }
-    let [msg ,setMsg]=useState([])
+     let [send, setNewmsg]=useState('')
+     let [loginuser, setLoginUser]= useState()
+    
+    let [flagquick ,setflagquick]=useState(false)
 
     let [currentChat , setCurrentChat]=useState([])
 
 
-    let [display, setDisplay]=useState(loginUser)
+    let [display, setDisplay]=useState()
 
-    let users=[
-        {   id:1,
-            name:'Rabin Suwal',
-            msg:'hello this is rabin suwal',
-            img:'/img/blank_img.png',
-            email:'rabin23@gmail.com'
-        },
-        {   id:2,
-            name:'Sabin Suwal',
-            msg:'hello this is sabin suwal',
-            img:'/img/blank_img.png',
-            email:'sabin23@gmail.com'
-        }
-    ]
 
     let [chatlist , setChatList]=useState([])
     let [searchuser, setSearchUser]=useState([])
 
-    const searchUser=(e)=>{
-     let searchUser =users.filter(user=>user.name.toLocaleLowerCase().includes(e.target.value.toLocaleLowerCase()))
-        console.log(searchUser)
-     setSearchUser(searchUser)
-     
-    }
+    useEffect(()=>{
+      let chatdb= JSON.parse(localStorage.getItem('chat'))
+      let logindb= JSON.parse(localStorage.getItem('loginUser'))
+      let usersdb= JSON.parse(localStorage.getItem('user'))
+      console.log(chatdb, logindb)
+      let getchatlist=chatdb.filter(ch=>ch.id==logindb.id)
+      console.log(getchatlist)
+      let tempusers=[]
+      getchatlist[0].chatmsg.map(chtmsg=>{
+         let usr=usersdb.find(usrs=>usrs.id==chtmsg.id)
+         if (usr){
 
+           chtmsg.name=usr.name
+           chtmsg.img=usr.img
+           chtmsg.email=usr.email
+           tempusers.push(chtmsg)
+         }
+      })
+
+      console.log(getchatlist,tempusers)
+      setChatList(tempusers)
+
+      setLoginUser(logindb)
+      setDisplay(logindb)
+      setCurrentChat(tempusers[0])
+     
+
+    },[flagquick])
 
     useEffect(()=>{
-        var findUser;
-         var flag=true;
-        console.log(searchuser)
-      if (searchuser.length>0){
-         findUser=searchuser
-         flag=false
-         
-      }
-      else{
-         findUser=users
-      }
-      
-      console.log(loginUser.chatmsg)
-      let temp=[]
-       let tchatlist_id= loginUser.chatmsg.filter(msgUser=>{
-          let t= findUser.find(user=>user.id==msgUser.id)
-           if (t) {
+      if (flagquick){
 
-           
-                    
-                    if (msgUser.msg[0].receive ){
-                        t.receive1=msgUser.msg[0].receive[0]
-                        temp.push(t)
-                    } else if (msgUser.msg[0].send ){
-                        t.send1 = msgUser.msg[0].send[0]
-                        temp.push(t)
-                    }
-              
-                
-            }
-       })
-        console.log(temp)
-     
-        setChatList(temp)
-        setCurrentChat(temp[0])
-        
+        let ongoinchat=JSON.parse(localStorage.getItem('ongoingchat'))
+         setCurrentChat(ongoinchat)
        
-    },[searchuser])
-    
-    
-    useEffect(()=>{
-               console.log(Object.keys(currentChat).length)
-                if (Object.keys(currentChat).length>0){
+      }
+      setflagquick(false)
+      },[flagquick])
 
-            let msgd= loginUser.chatmsg.filter(cur => {
-          
-                console.log(cur.id, currentChat.id)
-                if (cur.id==currentChat.id){
-                   
-                   return cur
-                }
-               } )
-               console.log(msgd[0].msg)
-               setMsg(msgd[0].msg)
-             
-               
-        }
-       }, [currentChat])
 
-  
    
-    const openChat=(id)=>{
-        const currentuser= chatlist.filter(cht=>cht.id==id)
-        setCurrentChat(currentuser[0])
-    }
-    console.log(currentChat)
-   const submitMsg=()=>{
-        if (newmsg!=''){
 
-            setMsg(pre=>[
-                ...pre, newmsg
-            ])
-            console.log(newmsg)
-            setNewmsg('')
-        }
-   }
-   const chatUserProfile=()=>{
-     setDisplay(currentChat)
-     console.log('current user profile')
-     setProfileFlag(true)
-   }
-   
- const handleCurrentProfile=()=>{
-    setDisplay(loginUser)
+    const searchUser=(e)=>{
+      let searchUser =users.filter(user=>user.name.toLocaleLowerCase().includes(e.target.value.toLocaleLowerCase()))
+         console.log(searchUser)
+      setSearchUser(searchUser)
+      
+     }
+
+     const openChat=(id)=>{
+      const currentuser= chatlist.filter(cht=>cht.id==id)
+      setCurrentChat(currentuser[0])
+  }
+  const chatUserProfile=()=>{
+    setDisplay(currentChat)
+    console.log('current user profile')
     setProfileFlag(true)
- }
-
+  }
   
- console.log(chatlist)
+const handleCurrentProfile=()=>{
+   setDisplay(loginuser)
+   setProfileFlag(true)
+}
+
+const submitMsg=(e)=>{
+ 
+  e.preventDefault()
+  let curr= JSON.parse(localStorage.getItem('chat'))
+  let send1={
+    send:[send]
+  }
+  let receive={
+    receive:[send]
+  }
+  let temp=[]
+  curr.map(cur=>{
+    if (cur.id==loginuser.id){
+      
+       cur.chatmsg.map((a)=>{
+        console.log(a.id, loginuser.id)
+         if (a.id==currentChat.id){
+          console.log('a')
+          a.msg.push(send1)
+         }
+       })
+    }else if (cur.id==currentChat.id){
+  
+      cur.chatmsg.map((a)=>{
+        if (a.id==loginuser.id){
+          a.msg.push(receive)
+        }
+     })
+    }
+    temp.push(cur)
+  })
+  
+  localStorage.setItem('chat',JSON.stringify (temp))
+setflagquick(true)
+
+}
+
+
+
   return (
   <>
   <nav className='navbar'>
@@ -180,7 +141,7 @@ export default function ChatPage() {
         </h4>
        </div>
        <div className='profile_navbar'>
-       <img src='/img/blank_img.png' alt='/img/blank_img.png'
+       <img src={loginuser?.img} alt='/img/blank_img.png'
        onClick={handleCurrentProfile}
        />
        <div className='notification'>
@@ -205,10 +166,10 @@ export default function ChatPage() {
 
 
                 {
-                   chatlist.length>0 && chatlist.map((chtlist ,id)=>
+                   chatlist?.map((chtlist ,id)=>
 
                  <div 
-                   className= {(chtlist.id==currentChat.id)?'user_profile active':'user_profile'
+                   className= {(chtlist?.id==currentChat?.id)?'user_profile active':'user_profile'
                 }
                    onClick={()=>openChat(chtlist.id)}
                    key={id}
@@ -219,10 +180,10 @@ export default function ChatPage() {
                   >
 
                     <h6>{chtlist.name}</h6>
-                    {chtlist.receive1?
-                    <p>{chtlist.receive1}</p>
+                    {chtlist.msg[0].receive?
+                    <p>{chtlist.msg[0].receive}</p>
                     :
-                    <p>You: {chtlist.receive1}</p>}
+                    <p>You: {chtlist.msg[0].send}</p>}
                     
                   </div>
                  </div>
@@ -241,15 +202,22 @@ export default function ChatPage() {
                 <div className='msg'>
 
                     {
-                        msg.map((sing,id)=>
+                        currentChat?.msg?.map((sing,id)=>
                         <>
-                           
+                            {
+                            sing.receive&&
+
                             <h5 key={id} className='msg_texts lf'>
-                                {sing.receive}
+                                {sing?.receive}
                             </h5>
+                           }
+                           {sing.send&&
+                           
                             <h5 key={id} className='msg_texts'>
                                 {sing.send}
                             </h5>
+                           }
+                          
                             
                         </>
                             )
@@ -258,14 +226,17 @@ export default function ChatPage() {
                    
                 </div>
                 <div className='footer'>
+                  <form className='form' onSubmit={submitMsg}>
+
                   <input type='text' 
-                  value={newmsg}
+                  value={send}
                   onChange={(e)=>setNewmsg(e.target.value)}
                   />
                   <button
-                  onClick={submitMsg}
+                   type='submit'
                   >Send
                     </button>
+                  </form>
                   
                 </div>
         </div>
@@ -282,15 +253,15 @@ export default function ChatPage() {
       onClick={()=>setProfileFlag(false)}
       ></i>
         <div className='img'>
-           <img  src={display.img}/>
+           <img  src={display?.img}/>
         </div>
         <div className='name'>
             <label htmlFor="">Name</label>
-            <p>{display.name}</p>
+            <p>{display?.name}</p>
         </div>
         <div name>
             <label htmlFor="">Email</label>
-            <p>{display.email}</p>
+            <p>{display?.email}</p>
         </div>
 
       </div>

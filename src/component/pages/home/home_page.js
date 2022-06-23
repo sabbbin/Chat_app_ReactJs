@@ -1,5 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import './home_page.css'
+import Login from "./Login";
+import Register from "./register";
+
+
+import {userdata} from '../../../login'
+import {chatdata } from '../../../chat'
 
 
 export default function Home_page() {
@@ -7,9 +13,20 @@ export default function Home_page() {
     let [flag, setFlag]= useState(true)
 
     const handleChange=()=>{
-        console.log('btn clie')
+      
         setFlag(!flag)
     }
+   
+
+    useEffect(()=>{
+       
+        localStorage.setItem('user' ,JSON.stringify(userdata.user))
+        localStorage.setItem('chat', JSON.stringify(chatdata.chat))
+         
+    },[])
+
+
+
   return (
     <>
       <div className="container">
@@ -27,91 +44,17 @@ export default function Home_page() {
                    onClick={handleChange}
                   >Sign Up</button>
                 </div>
-                <div 
-                className={flag?'login active':'login'}
-                >
+               
+               {flag?
+              
 
-                <form className="form">
-                    <div className="form_control"> 
-                    <label>
-                        Email Address
-                    </label>
-                    <input type='email' placeholder="Enter your Email Address" />
-                    </div>
-                    <div className="form_control"> 
-                    <label>
-                        Password
-                    </label>
-                     <input placeholder="Enter password" />
-                  
-                        <button  className="btn btn_show">
-                            Show
-                        </button>
-                  
-                    </div>
-                    <button className="btn btn_login">
-                        Login
-                    </button>
-                   
-                </form>
-                <button className="btn btn_guest">
-                        Get Guest User Credentials
-                    </button>
-                </div>
-                    <div 
-                      className={flag?'register ':'register active'}
-                    >
-
-                <form className="form">
-                    <div className="form_control">
-                        <label>
-                            Name
-                        </label>
-                        <input placeholder="Name" />
-
-                    </div>
-                    <div className="form_control">
-                        <label>
-                            Email
-                        </label>
-                        <input placeholder="Email" />
-
-                    </div>
-                    <div className="form_control">
-                        <label>
-                            Password
-                        </label>
-                  
-                       
+            <Login />
+               :
+               
+           
+                <Register />
+               }
                     
-                        <input placeholder="Password" />
-                        <button  className="btn btn_show">
-                            Show
-                        </button>
-                      
-
-                    </div>
-                    <div className="form_control">
-                        <label>
-                            Con_Password
-                        </label>
-                        <input placeholder="Password" />
-
-                    </div>
-                    <div className="form_control">
-                        <label className="img_file">
-                        <input type='file' />
-                          Upload Image
-                        </label>
-                        
-
-                    </div>
-                    <button className="btn btn_login">
-                        Register
-                    </button>
-
-                </form>
-                    </div>
                  
           </div>
         </div>
