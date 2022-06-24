@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './ChatPage.css'
 
 export default function ChatPage() {
@@ -19,10 +20,12 @@ export default function ChatPage() {
     let [chatlist , setChatList]=useState([])
     let [searchuser, setSearchUser]=useState([])
 
+    let navigate= useNavigate()
     useEffect(()=>{
       let chatdb= JSON.parse(localStorage.getItem('chat'))
       let logindb= JSON.parse(localStorage.getItem('loginUser'))
       let usersdb= JSON.parse(localStorage.getItem('user'))
+
       console.log(chatdb, logindb)
       let getchatlist=chatdb.filter(ch=>ch.id==logindb.id)
       console.log(getchatlist)
@@ -86,6 +89,7 @@ const handleCurrentProfile=()=>{
 const submitMsg=(e)=>{
  
   e.preventDefault()
+  
   let curr= JSON.parse(localStorage.getItem('chat'))
   let send1={
     send:[send]
@@ -117,9 +121,16 @@ const submitMsg=(e)=>{
   
   localStorage.setItem('chat',JSON.stringify (temp))
 setflagquick(true)
+setNewmsg('')
 
 }
 
+const logout=()=>{
+
+  localStorage.removeItem('loginUser');
+  navigate('/')
+  
+}
 
 
   return (
@@ -149,6 +160,9 @@ setflagquick(true)
        <i className="fa-solid fa-bell"></i>
        <span>3</span>
        </div>
+       <button className='btn btn_logout'
+       onClick={logout}
+       >Logout</button>
        </div>
   </nav>
 
@@ -181,7 +195,7 @@ setflagquick(true)
 
                     <h6>{chtlist.name}</h6>
                     {chtlist.msg[0].receive?
-                    <p>{chtlist.msg[0].receive}</p>
+                    <p >{chtlist.msg[0].receive}</p>
                     :
                     <p>You: {chtlist.msg[0].send}</p>}
                     
@@ -194,7 +208,7 @@ setflagquick(true)
         </div>
         <div className='main_content'>
                 <div className='title'>
-                <h5>{currentChat.name}</h5>
+                <h5>{currentChat?.name}</h5>
                 <i class="fa-solid fa-eye"
                 onClick={chatUserProfile}
                 ></i>
@@ -213,7 +227,7 @@ setflagquick(true)
                            }
                            {sing.send&&
                            
-                            <h5 key={id} className='msg_texts'>
+                            <h5 key={id} style={{background:'lightblue'}} className='msg_texts'>
                                 {sing.send}
                             </h5>
                            }
@@ -229,6 +243,7 @@ setflagquick(true)
                   <form className='form' onSubmit={submitMsg}>
 
                   <input type='text' 
+                  required
                   value={send}
                   onChange={(e)=>setNewmsg(e.target.value)}
                   />

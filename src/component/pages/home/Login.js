@@ -10,13 +10,17 @@ export default function Login() {
 
    const navigate= useNavigate()
 
-    useEffect(()=>{
-        let usersDb=JSON.parse( localStorage.getItem('user'))
+    
+        useEffect(()=>{
+
+            let usersDb=JSON.parse( localStorage.getItem('user'))
             setusers(usersDb)
-    },[])
+        },[])
+
 
  const submitUser=(e)=>{
     e.preventDefault()
+    console.log(users)
     let status=users.find(user=>{
       
         if (user.email==email && user.password==password){
@@ -63,6 +67,7 @@ export default function Login() {
                      placeholder="Enter password" />
                   
                         <button  className="btn btn_show"
+                         type='button'
                         onClick={()=>setShow(!show)}
                         >
                             {show?'Hide':'Show'}

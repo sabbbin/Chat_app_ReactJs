@@ -19,9 +19,14 @@ export default function Home_page() {
    
 
     useEffect(()=>{
-       
-        localStorage.setItem('user' ,JSON.stringify(userdata.user))
-        localStorage.setItem('chat', JSON.stringify(chatdata.chat))
+      let test=localStorage.getItem('user')
+      
+  
+      console.log(test!=null)
+        if (test==null){
+          localStorage.setItem('user' ,JSON.stringify(userdata.user))
+          localStorage.setItem('chat', JSON.stringify(chatdata.chat))
+        }       
          
     },[])
 

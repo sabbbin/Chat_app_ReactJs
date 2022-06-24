@@ -64,6 +64,7 @@
 .profile_navbar{
      text-align: end;
      
+     
     }
 .profile_navbar img{
     height: 30px;
@@ -95,10 +96,21 @@
     width: 20px;
 }
 
+.navbar .btn_logout{
+    
+    cursor: pointer;
+    margin-left: 10px;
+    height: 25px;
+    top:-8px;
+    position: relative;
+
+}
+
 .main_container{
     background-color: blueviolet;
     height: 94vh;
     display: flex;
+ 
 }
 
 .main_container .sidebar{
