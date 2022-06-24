@@ -135,7 +135,7 @@
     margin-top: 8px;
     justify-content: space-between;
     align-items: center;
-    background-color: red;
+   
 }
 
 .sidebar_header h6{
@@ -153,11 +153,52 @@
     margin-left: 10px;
 }
 
+.sidebar{
+    position: relative;
+    overflow: hidden;
+}
+
+.sidebar_content1{
+
+ 
+    background-color: red;
+    position: absolute;
+    top:120px;
+    left:20px;
+    width: 75%;
+    max-height: 300px;
+    overflow-y: auto;
+    border-radius: 30px;
+    padding: 10px;
+}
+.sidebar_content1 .user_profile{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: lightblue;
+    margin: 10px ;
+    border-radius: 10px;
+    padding: 2px;
+}
+
+.sidebar_content1 i{
+    height: 12px;
+    cursor: pointer;
+    color:white;
+    background-color: green;
+    padding: 3px;
+    border-radius: 10px;
+
+}
+
+
+
 .sidebar_content{
     
     margin-top: 40px;
   
     padding: 10px 15px;
+    
 }
 
 .sidebar_content .user_profile{
@@ -167,19 +208,24 @@
     background-color: yellow;
     border-radius: 20px;
     cursor: pointer;
+    overflow: hidden;
 }
 
 
 .sidebar_content .user_profile.active{
     background-color: wheat
 }
-.user_profile img{
+.user_profile img,
+.sidebar_content1 .user_profile img
+{
     height: 28px;
     border-radius: 50%;
     margin-right: 10px;
 }
 
-.user_info h6{
+.user_info h6,
+.sidebar_content1 .user_profile h6
+{
     padding: 0px;
     margin: 0;
     font-size: 14px;
@@ -196,7 +242,9 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: red;
+    background-color:lightgray;
+    height: 20px;
+    border-radius: 10px;
     position: relative;
 }
 
@@ -211,15 +259,19 @@
 }
 
 .main_content .msg{
-    height: 85%;
-    background-color:green;
+    height: 82%;
+    border: 3px solid lightblue;
+    
     margin-bottom: 10px;
+    border-radius: 20px 0px 0px 20px ;
+    overflow-y: scroll;
+    padding: 20px 30px;
 }
 
 .main_content .footer{
    
     bottom: 70px;
-    background-color: aqua;
+    
     width:100%;
     text-align: center;
     
@@ -259,7 +311,7 @@
 
 .msg .msg_texts{
     background-color: aliceblue;
-    height: 30px;
+    
     width: fit-content;
     padding: 6px 20px;
     border-radius: 60px;
@@ -270,7 +322,7 @@
 }
 .msg .msg_texts.lf{
     background-color: aliceblue;
-    height: 30px;
+  
     width: fit-content;
     padding: 6px 20px;
     border-radius: 60px;

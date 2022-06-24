@@ -6,6 +6,7 @@ export default function ChatPage() {
 
     let [flag, setFlag]= useState(false)
     let [profileFlag, setProfileFlag]=useState(false)
+ 
      let [send, setNewmsg]=useState('')
      let [loginuser, setLoginUser]= useState()
     
@@ -21,6 +22,7 @@ export default function ChatPage() {
     let [searchuser, setSearchUser]=useState([])
 
     let navigate= useNavigate()
+
     useEffect(()=>{
       let chatdb= JSON.parse(localStorage.getItem('chat'))
       let logindb= JSON.parse(localStorage.getItem('loginUser'))
@@ -30,6 +32,7 @@ export default function ChatPage() {
       let getchatlist=chatdb.filter(ch=>ch.id==logindb.id)
       console.log(getchatlist)
       let tempusers=[]
+     
       getchatlist[0].chatmsg.map(chtmsg=>{
          let usr=usersdb.find(usrs=>usrs.id==chtmsg.id)
          if (usr){
@@ -39,35 +42,41 @@ export default function ChatPage() {
            chtmsg.email=usr.email
            tempusers.push(chtmsg)
          }
+       
       })
 
       console.log(getchatlist,tempusers)
       setChatList(tempusers)
+      localStorage.setItem('chatlist',JSON.stringify(tempusers))
 
       setLoginUser(logindb)
       setDisplay(logindb)
-      setCurrentChat(tempusers[0])
+      console.log(currentChat)
+      let tempcurrentchat= tempusers.filter((user=>
+            user.id==currentChat?.id
+))
+       
+       if (tempcurrentchat.length>0){
+        setCurrentChat(tempcurrentchat[0])
+       }
+       else{
+
+         setCurrentChat(tempusers[0])
+       }
+     
      
 
     },[flagquick])
 
-    useEffect(()=>{
-      if (flagquick){
-
-        let ongoinchat=JSON.parse(localStorage.getItem('ongoingchat'))
-         setCurrentChat(ongoinchat)
-       
-      }
-      setflagquick(false)
-      },[flagquick])
 
 
+    
    
 
     const searchUser=(e)=>{
-      let searchUser =users.filter(user=>user.name.toLocaleLowerCase().includes(e.target.value.toLocaleLowerCase()))
-         console.log(searchUser)
-      setSearchUser(searchUser)
+      let tempchatlist= JSON.parse (localStorage.getItem('chatlist'))
+      let searchUser =tempchatlist.filter(user=>user.name.toLocaleLowerCase().includes(e.target.value.toLocaleLowerCase()))
+       setChatList(searchUser)
       
      }
 
@@ -120,7 +129,7 @@ const submitMsg=(e)=>{
   })
   
   localStorage.setItem('chat',JSON.stringify (temp))
-setflagquick(true)
+setflagquick(!flagquick)
 setNewmsg('')
 
 }
@@ -130,6 +139,29 @@ const logout=()=>{
   localStorage.removeItem('loginUser');
   navigate('/')
   
+}
+
+const newFriend=()=> {
+  let userdb1= JSON.parse(localStorage.getItem('user'))
+  let logindb= JSON.parse(localStorage.getItem('loginUser'))
+  let userdb=userdb1.filter(rs=>rs.id!=logindb.id)
+  let chatdb= JSON.parse(localStorage.getItem('chatlist'))
+  let newfri=[]
+   userdb.filter(user=>{
+    console.log(user.id)
+     let flag=chatdb.find(user1=>user1.id==user.id) 
+     console.log(flag)
+     if (!flag){
+        newfri.push(user)
+     }
+   })
+   console.log('new', newfri)
+   setSearchUser(newfri)
+    
+}
+
+const addFriend=()=>{
+
 }
 
 
@@ -170,12 +202,18 @@ const logout=()=>{
         <div className='sidebar'>
              <div className='sidebar_header'>
              <h6> My Chat</h6>
-             <button>
-                New chat group <span>
+             <button
+             type='button'
+             onClick={newFriend}
+             >
+                New Friend <span>
                 <i class="fa-solid fa-plus"></i>  
                 </span>
              </button>
              </div>
+
+
+
              <div className='sidebar_content'>
 
 
@@ -194,10 +232,10 @@ const logout=()=>{
                   >
 
                     <h6>{chtlist.name}</h6>
-                    {chtlist.msg[0].receive?
-                    <p >{chtlist.msg[0].receive}</p>
+                    {chtlist.msg[chtlist.msg.length-1].receive?
+                    <p >{chtlist.msg[chtlist.msg.length-1].receive}</p>
                     :
-                    <p>You: {chtlist.msg[0].send}</p>}
+                    <p>You: {chtlist.msg[chtlist.msg.length-1].send}</p>}
                     
                   </div>
                  </div>
@@ -205,6 +243,33 @@ const logout=()=>{
                 }
                 
              </div>
+             <div className='sidebar_content1'>
+
+
+                {
+                   searchuser?.map((chtlist ,id)=>
+
+                 <div 
+                   className='user_profile'
+                 
+                   onClick={()=>addFriend(chtlist.id)}
+                   key={id}
+                 >
+                 <img src='/img/blank_img.png' alt='/img/blank_img.png'/>
+               
+
+                    <h6>{chtlist.name}</h6>
+
+                     <i class="fa-solid fa-plus"></i> 
+                
+                 </div>
+                        )
+                }
+                
+             </div>
+
+
+
         </div>
         <div className='main_content'>
                 <div className='title'>
