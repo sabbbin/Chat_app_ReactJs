@@ -22,8 +22,19 @@ export default function Register() {
              password,
              img: URL.createObjectURL(img[0])
             }
+
+            let datachat={
+                id,
+                name,
+                email,
+                img:'/img/blank_img.png',
+               chatmsg:[]
+            }
             userdb.push(data)
             localStorage.setItem('user',JSON.stringify(userdb))
+            let chatdb= JSON.parse (localStorage.getItem('chat'))
+            chatdb.push(datachat)
+            localStorage.setItem('chat', JSON.stringify(chatdb))
 
             window.alert('Go to login page')
             setName('')

@@ -30,6 +30,7 @@ export default function Login() {
     console.log(status)
     if (status){
         localStorage.setItem('loginUser', JSON.stringify(status))
+       
         console.log('helo')
         navigate('/chat')
 
