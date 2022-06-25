@@ -80,12 +80,15 @@ export default function Register() {
 
                     </div>
                     <div className="form_control">
-                        <label>
+                     
+
+                        <label className='label'>
                             Password
                         </label>
-                  
                        
-                    
+                  
+                      
+
                         <input
                         required
                         value={password}
@@ -99,6 +102,8 @@ export default function Register() {
                              {show?'Hide':'Show'}
                         </button>
                       
+                      
+                    
 
                     </div>
                     <div className="form_control">

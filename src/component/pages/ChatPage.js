@@ -167,6 +167,7 @@ const newFriend=()=> {
      })
      console.log('new', newfri)
      setSearchUser(newfri)
+   
       
      setnewFriFlag(!newfriFlag)
   
@@ -197,6 +198,7 @@ const addFriend=(id)=>{
   let refreshnewuser= searchuser.filter(usr=>usr.id!=id)
   setSearchUser(refreshnewuser)
   localStorage.setItem('chat',JSON.stringify(chatlistdb))
+  
   
   setflagquick(!flagquick)
 }
@@ -290,13 +292,17 @@ const addFriend=(id)=>{
                 }
                 
              </div>
+
+
+
+
              <div 
               className={ newfriFlag?'sidebar_content1 active' :'sidebar_content1'}
               >
               
-
+          
                 {
-                   searchuser?.map((chtlist ,id)=>
+                   searchuser.length>0 && searchuser?.map((chtlist ,id)=>
 
                  <div 
                    className='user_profile'
@@ -304,6 +310,7 @@ const addFriend=(id)=>{
                    onClick={()=>addFriend(chtlist.id)}
                    key={id}
                  >
+               
                  <img src='/img/blank_img.png' alt='/img/blank_img.png'/>
                
 
@@ -317,6 +324,8 @@ const addFriend=(id)=>{
                 }
                 
              </div>
+            
+           
 
 
 
